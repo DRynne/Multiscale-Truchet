@@ -107,8 +107,6 @@ class QuadTree {
 
   }
 
-
-
   split(point) {
 
     if (!this.boundary.contains(point)) {
