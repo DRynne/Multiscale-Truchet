@@ -1,27 +1,33 @@
 let qtree;
 let bounds;
+let mousepos;
+
+
 
 function setup() {
-  createCanvas(400, 400);
+  canvasSize = 800;
+  canvasW = canvasSize/2;
+  canvasH = canvasSize/2;
+  canvasX = canvasSize/2;
+  canvasY = canvasSize/2;
+
+  createCanvas(canvasSize, canvasSize);
   background(255);
-  let bounds = new Rectangle (200, 200, 200, 200);
+  let bounds = new Rectangle (canvasX, canvasY, canvasW, canvasH);
   qtree = new QuadTree(bounds, 1);
-  // for (let i = 0; i < 300; i++) {
-  //   let x = randomGaussian(width / 2, width / 8);
-  //   let y = randomGaussian(height / 2, height / 8);
-  //   let p = new Pt(x, y);
-  //   qtree.insert(p);
-  // }
+
+  mousepos = new point(mouseX,mouseY);
 }
 
 function draw() {
-  //bounds = new Rectangle(200, 200, 200, 200);
-  //qtree = new QuadTree(bounds, 1);
+  mousepos = new point(mouseX,mouseY);
+  qtree.highlight(mousepos);
   background(0);
   qtree.show();
+
 }
 
 function mouseClicked(){
-  mousepos = new point(mouseX,mouseY);
-  qtree.insert(mousepos);
+  qtree.split(mousepos);
+  redraw();
 }
