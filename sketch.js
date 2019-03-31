@@ -6,6 +6,7 @@ let mousepos;
 
 function setup() {
 
+  //clunky
   canvasSize = windowHeight/2;
   canvasW = canvasSize/2;
   canvasH = canvasSize/2;
@@ -16,7 +17,6 @@ function setup() {
   canvasY = canvasSize/2;
 
   createCanvas(canvasSize, canvasSize);
-  //background(0);
   let bounds = new Rectangle (canvasX, canvasY, canvasW, canvasH);
   qtree = new QuadTree(bounds, 0);
 

@@ -112,43 +112,53 @@ class QuadTree {
       }
     }
 
-    while (!drawqueue.isEmpty()){
-    let tile = drawqueue.dequeue();
-    tile.drawtile();
+    while (!drawqueue.isEmpty()) {
+      let tile = drawqueue.dequeue();
+      tile.drawtile();
     }
 
-
-    //  console.log(drawqueue);
-
-    // if (!this.divided) {
-    //   drawqueue.enqueue(this);
-    // } else {
-    //   for (let i = 0; i < 4; i++) {
-    //     this.divisions[i].drawtiles();
-    //   }
-    // }
   }
 
   show() {
 
-    this.edgecol = this.overbox ? this.edgeHover : this.edgeNeut;
-    this.fillcol = this.overbox ? this.fillHover : this.fillNeut;
 
-    this.overbox = false;
+    let drawqueue = new Queue();
+    let traverse = new Queue();
+    traverse.enqueue(this);
+    //drawqueue.enqueue(this.tile);
+
+    let node;
+
+    while (!traverse.isEmpty()) {
+      node = traverse.dequeue();
+      if (node.divided) {
+        for (let i = 0; i < 4; i++) {
+          traverse.enqueue(node.divisions[i]);
+        }
+      } else {
+        drawqueue.enqueue(node);
+      }
+    }
+
     push()
-    stroke(this.edgecol);
+
     noFill();
-    //fill(this.fillcol);
     strokeWeight(1);
     rectMode(RADIUS);
 
-    if (this.divided) {
-      //fuck it just hardcode the 4 divisions
-      for (let i = 0; i < 4; i++) {
-        this.divisions[i].show();
+    while (!drawqueue.isEmpty()) {
+      let node = drawqueue.dequeue();
+      if (node.overbox && !drawqueue.isEmpty()) {
+        drawqueue.enqueue(node);
+        continue;
+      } else if (node.overbox && drawqueue.isEmpty()) {
+        stroke(node.edgeHover);
+        rect(node.boundary.x, node.boundary.y, node.boundary.w, node.boundary.h);
+        node.overbox = false;
+      } else {
+        stroke(node.edgeNeut)
+        rect(node.boundary.x, node.boundary.y, node.boundary.w, node.boundary.h);
       }
-    } else {
-      rect(this.boundary.x, this.boundary.y, this.boundary.w, this.boundary.h);
     }
     pop()
   }
