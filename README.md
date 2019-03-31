@@ -6,6 +6,12 @@ Javascript implementation of Christopher Carlson's algorithim:
 
 https://christophercarlson.com/portfolio/multi-scale-truchet-patterns/
 
+## Examples
+
+![colour squiggle](colour_squiggle.png)
+
+![highlighted](highlighted.png)
+
 ## Todo
 
 - switch off and on the quadtree highlighting 
