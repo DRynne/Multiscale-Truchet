@@ -31,6 +31,8 @@ class point {
 
 class QuadTree {
   constructor(boundary, tier) {
+
+    //some of this logic sucks like, it shouldnt be repeated in every child
     this.boundary = boundary;
     this.divided = false;
     this.divisions = {};
