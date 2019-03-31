@@ -6,17 +6,17 @@ let mousepos;
 
 function setup() {
 
-  canvasSize = windowHeight;
+  canvasSize = windowHeight/2;
   canvasW = canvasSize/2;
   canvasH = canvasSize/2;
 
-  canvasSize *=4/3;
+  canvasSize *=5/3;
 
   canvasX = canvasSize/2;
   canvasY = canvasSize/2;
 
   createCanvas(canvasSize, canvasSize);
-  background(255);
+  //background(0);
   let bounds = new Rectangle (canvasX, canvasY, canvasW, canvasH);
   qtree = new QuadTree(bounds, 0);
 
@@ -24,16 +24,12 @@ function setup() {
 }
 
 function draw() {
+  background(qtree.color[0])
   mousepos = new point(mouseX,mouseY);
   qtree.highlight(mousepos);
-  background(0);
 
   qtree.drawtiles();
   //qtree.show();
-  // noLoop()
-  // wt = new wingtile(14,0,qtree.boundary,qtree.color);
-  // wt.drawtile(wt.motif);
-
 }
 
 function mouseClicked(){

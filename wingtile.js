@@ -33,67 +33,67 @@ class wingtile {
 
     switch (this.motif) {
 
-      case 0:
+      case "\\":
         arc(x + w, y - h, arcd, arcd, PI / 2, PI);
         arc(x - w, y + h, arcd, arcd, 3 * PI / 2, 2 * PI);
 
         break;
-      case 1: //"//"
+      case "/":
         arc(x - w, y - h, arcd, arcd, 0, PI / 2);
         arc(x + w, y + h, arcd, arcd, PI, 3 * PI / 2, );
 
         break;
-      case 2: //"-":
+      case "-":
         rect(x, y, w, smallr);
         break;
-      case 3: //"|":
+      case "|":
         rect(x, y, smallr, h);
         break;
-      case 4: //"+.":
+      case "+.":
 
         break;
-      case 5: //"x.":
+      case "x.":
 
         fill(this.color[0]);
         rect(x, y, w, h);
         break;
-      case 6: //"+":
+      case "+":
         rect(x, y, w, smallr);
         rect(x, y, smallr, h);
         break;
-      case 7: //"fne":
+      case "fne":
         arc(x + w, y - h, arcd, arcd, PI / 2, PI);
 
         break;
-      case 8: //"fsw":
+      case "fsw":
         arc(x - w, y + h, arcd, arcd, 3 * PI / 2, 2 * PI);
 
         break;
-      case 9: //"fnw":
+      case "fnw":
         arc(x - w, y - h, arcd, arcd, 0, PI / 2);
 
         break;
-      case 10: // "fse":
+      case "fse":
         arc(x + w, y + h, arcd, arcd, PI, 3 * PI / 2, );
 
         break;
-      case 11: //"tn":
+      case "tn":
 
         fill(this.color[0]);
         rect(x, y - smallr, w, bigr);
         break;
-      case 12: //"ts":
+      case "ts":
 
         fill(this.color[0]);
         rect(x, y + smallr, w, bigr);
 
         break;
-      case 13: //"te":
+      case "te":
 
         fill(this.color[0]);
         rect(x + smallr, y, bigr, h);
         break;
-      case 14: //"tw":
+      case "tw":
 
         fill(this.color[0]);
         rect(x - smallr, y, bigr, h);

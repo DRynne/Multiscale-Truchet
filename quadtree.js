@@ -33,7 +33,7 @@ class QuadTree {
   constructor(boundary, tier) {
     this.boundary = boundary;
     this.divided = false;
-    this.divisions = {}
+    this.divisions = {};
     this.tier = tier;
     this.overbox = false;
     // this.motiflist = ["/","\\", "-", "|","+.","x.",  "+", "fne","fsw","fnw","fse","tn","ts","te","tw"];
@@ -41,8 +41,8 @@ class QuadTree {
 
     //wingtile logic
     this.phase = this.tier % 2;
-    this.motif = 1;//int(random(0, 14));
-    this.color = [color(0), color(255)];
+    this.motif = random(["/","\\", "-", "|","+.","x.",  "+", "fne","fsw","fnw","fse","tn","ts","te","tw"]); //["/","\\", "-", "|","+.","x.",  "+", "fne","fsw","fnw","fse","tn","ts","te","tw"]
+    this.color = [color(255), color(0)];
     this.tile = new wingtile(this.motif, this.phase, this.boundary, this.color);
 
     this.edgeHover = color(0, 255, 0);
@@ -53,6 +53,7 @@ class QuadTree {
     this.fillNeut = color(0);
     this.edgecol = this.edgeNeut;
     this.fillcol = this.fillNeut;
+    this.discovered = false;
 
   }
 
@@ -92,16 +93,40 @@ class QuadTree {
 
   }
 
-  drawtiles() {
-    if (!this.divided) {
-      this.tile.drawtile()
-    } else{
-      for (let i = 0; i < 4; i++) {
-        this.divisions[i].drawtiles();
+  drawtiles() { //this needs to be a breadth first search{
+    let drawqueue = new Queue();
+    let traverse = new Queue();
+    traverse.enqueue(this);
+    //drawqueue.enqueue(this.tile);
+
+    let node;
+
+    while (!traverse.isEmpty()) {
+      node = traverse.dequeue();
+      if (node.divided) {
+        for (let i = 0; i < 4; i++) {
+          traverse.enqueue(node.divisions[i]);
+        }
+      } else {
+        drawqueue.enqueue(node.tile);
       }
     }
 
+    while (!drawqueue.isEmpty()){
+    let tile = drawqueue.dequeue();
+    tile.drawtile();
+    }
 
+
+    //  console.log(drawqueue);
+
+    // if (!this.divided) {
+    //   drawqueue.enqueue(this);
+    // } else {
+    //   for (let i = 0; i < 4; i++) {
+    //     this.divisions[i].drawtiles();
+    //   }
+    // }
   }
 
   show() {
