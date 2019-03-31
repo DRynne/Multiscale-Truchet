@@ -35,7 +35,11 @@ class QuadTree {
     this.divided = false;
     this.divisions = {}
     this.tier = tier;
+    this.phase = this.tier % 2;
     this.overbox = false;
+    this.motifindex = int(random(0,14));
+    this.motiflist = ["/","\\", "-", "|","+.","x.",  "+", "fne","fsw","fnw","fse","tn","ts","te","tw"];
+    this.motif = this.motiflist[this.motifindex];
 
     this.edgeHover = color(0, 255, 0);
     this.fillHover = color(0, 64, 0);
@@ -46,6 +50,7 @@ class QuadTree {
     this.edgecol = this.edgeNeut;
     this.fillcol = this.fillNeut;
 
+    this.color = [color(0), color(255)];
   }
 
   divide() {
@@ -90,11 +95,11 @@ class QuadTree {
     this.fillcol = this.overbox ? this.fillHover : this.fillNeut;
 
     this.overbox = false;
-
+    push()
     stroke(this.edgecol);
     fill(this.fillcol);
     strokeWeight(1);
-    rectMode(CENTER);
+    rectMode(RADIUS);
 
     if (this.divided) {
       //fuck it just hardcode the 4 divisions
@@ -102,10 +107,11 @@ class QuadTree {
         this.divisions[i].show();
       }
     } else {
-      rect(this.boundary.x, this.boundary.y, this.boundary.w * 2, this.boundary.h * 2);
+      rect(this.boundary.x, this.boundary.y, this.boundary.w, this.boundary.h);
     }
-
+      pop()
   }
+
 
   split(point) {
 
