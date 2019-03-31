@@ -16,13 +16,11 @@ class wingtile {
   }
 
 
-  drawtile(motif) {
-    this.motif = motif;
-
+  drawtile() {
     let x = this.boundary.x;
     let y = this.boundary.y;
-    let w = this.boundary.w / 2;
-    let h = this.boundary.h / 2;
+    let w = this.boundary.w;
+    let h = this.boundary.h;
     let smallr = 2 * w / 6;
     let bigr = 2 * w / 3;
     let arcd = 2 * 2 * 2 * w / 3;

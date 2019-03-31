@@ -35,11 +35,15 @@ class QuadTree {
     this.divided = false;
     this.divisions = {}
     this.tier = tier;
-    this.phase = this.tier % 2;
     this.overbox = false;
-    this.motifindex = int(random(0,14));
-    this.motiflist = ["/","\\", "-", "|","+.","x.",  "+", "fne","fsw","fnw","fse","tn","ts","te","tw"];
-    this.motif = this.motiflist[this.motifindex];
+    // this.motiflist = ["/","\\", "-", "|","+.","x.",  "+", "fne","fsw","fnw","fse","tn","ts","te","tw"];
+    // this.motif = this.motiflist[this.motifindex];
+
+    //wingtile logic
+    this.phase = this.tier % 2;
+    this.motif = 1;//int(random(0, 14));
+    this.color = [color(0), color(255)];
+    this.tile = new wingtile(this.motif, this.phase, this.boundary, this.color);
 
     this.edgeHover = color(0, 255, 0);
     this.fillHover = color(0, 64, 0);
@@ -50,7 +54,6 @@ class QuadTree {
     this.edgecol = this.edgeNeut;
     this.fillcol = this.fillNeut;
 
-    this.color = [color(0), color(255)];
   }
 
   divide() {
@@ -89,6 +92,18 @@ class QuadTree {
 
   }
 
+  drawtiles() {
+    if (!this.divided) {
+      this.tile.drawtile()
+    } else{
+      for (let i = 0; i < 4; i++) {
+        this.divisions[i].drawtiles();
+      }
+    }
+
+
+  }
+
   show() {
 
     this.edgecol = this.overbox ? this.edgeHover : this.edgeNeut;
@@ -97,7 +112,8 @@ class QuadTree {
     this.overbox = false;
     push()
     stroke(this.edgecol);
-    fill(this.fillcol);
+    noFill();
+    //fill(this.fillcol);
     strokeWeight(1);
     rectMode(RADIUS);
 
@@ -109,7 +125,7 @@ class QuadTree {
     } else {
       rect(this.boundary.x, this.boundary.y, this.boundary.w, this.boundary.h);
     }
-      pop()
+    pop()
   }
 
 

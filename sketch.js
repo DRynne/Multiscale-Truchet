@@ -5,9 +5,13 @@ let mousepos;
 
 
 function setup() {
-  canvasSize = 800;
+
+  canvasSize = windowHeight;
   canvasW = canvasSize/2;
   canvasH = canvasSize/2;
+
+  canvasSize *=4/3;
+
   canvasX = canvasSize/2;
   canvasY = canvasSize/2;
 
@@ -23,10 +27,12 @@ function draw() {
   mousepos = new point(mouseX,mouseY);
   qtree.highlight(mousepos);
   background(0);
-  qtree.show();
-  noLoop()
-  wt = new wingtile(14,0,qtree.boundary,qtree.color);
-  wt.drawtile(wt.motif);
+
+  qtree.drawtiles();
+  //qtree.show();
+  // noLoop()
+  // wt = new wingtile(14,0,qtree.boundary,qtree.color);
+  // wt.drawtile(wt.motif);
 
 }
 
