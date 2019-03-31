@@ -1,5 +1,5 @@
 # Multiscale-Truchet
-Clickable, multicsale truchet tiling generator in javascript
+Clickable, multiscale truchet tiling generator in javascript
 
 ## Background
 Javascript implementation of Christopher Carlson's algorithim:
