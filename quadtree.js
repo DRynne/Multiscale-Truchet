@@ -38,12 +38,13 @@ class QuadTree {
     this.divisions = {};
     this.tier = tier;
     this.overbox = false;
-    // this.motiflist = ["/","\\", "-", "|","+.","x.",  "+", "fne","fsw","fnw","fse","tn","ts","te","tw"];
-    // this.motif = this.motiflist[this.motifindex];
+    this.motiflist = ["/","\\", "-", "|","+.","x.",  "+", "fne","fsw","fnw","fse","tn","ts","te","tw"];
+
 
     //wingtile logic
     this.phase = this.tier % 2;
-    this.motif = random(["/","\\", "-", "|","+.","x.",  "+", "fne","fsw","fnw","fse","tn","ts","te","tw"]); //["/","\\", "-", "|","+.","x.",  "+", "fne","fsw","fnw","fse","tn","ts","te","tw"]
+    this.motifindex = this.tier;//int(random(0,14));
+    this.motif = this.motiflist[this.motifindex];
     this.color = [color(255), color(0)];
     this.tile = new wingtile(this.motif, this.phase, this.boundary, this.color);
 
@@ -56,6 +57,25 @@ class QuadTree {
     this.edgecol = this.edgeNeut;
     this.fillcol = this.fillNeut;
     this.discovered = false;
+
+  }
+  scroll(deltaY,point){
+    if (!this.boundary.contains(point)) {
+      return false;
+    }
+
+    if (!this.divided) {
+      this.motifindex = (((this.motifindex + deltaY/abs(deltaY))  % this.motiflist.length) + this.motiflist.length) % this.motiflist.length;
+      this.motif = this.motiflist[this.motifindex];
+
+    } else {
+      for (let i = 0; i < 4; i++) {
+        if (this.divisions[i].scroll(deltaY,point)) {
+          return true;
+        }
+      }
+    }
+
 
   }
 
@@ -96,6 +116,7 @@ class QuadTree {
   }
 
   drawtiles() { //this needs to be a breadth first search{
+
     let drawqueue = new Queue();
     let traverse = new Queue();
     traverse.enqueue(this);
@@ -110,6 +131,8 @@ class QuadTree {
           traverse.enqueue(node.divisions[i]);
         }
       } else {
+        //this is a getaround, sloppy code
+        node.tile.motif = node.motif;
         drawqueue.enqueue(node.tile);
       }
     }
