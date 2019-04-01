@@ -33,6 +33,9 @@ class QuadTree {
   constructor(boundary, tier) {
 
     //some of this logic sucks like, it shouldnt be repeated in every child
+
+    //idea: main frame body, with array of all descendants. each parent has pointer to its children
+    //child just has
     this.boundary = boundary;
     this.divided = false;
     this.divisions = {};
